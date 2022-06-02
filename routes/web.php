@@ -26,6 +26,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
     // })->where(['any'=>'.*']);
 
-    Route::get('Create','App\Http\Controllers\productController@create');
-    Route::post('store', [App\Http\Controllers\ProductController::class, 'store']);
-    //Route::resource('products', ProductController::class);
+    // Route::get('Create','App\Http\Controllers\productController@create');
+    // Route::post('store', App\Http\Controllers\ProductController::class, 'store');
+    Route::resource('products', ProductController::class);

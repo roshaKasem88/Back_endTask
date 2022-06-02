@@ -14,4 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('post','Api\ProductController');
+//Route::apiresource('post','Api\ProductController');
+Route::apiResources(['post' , 'Api\ProductController']);

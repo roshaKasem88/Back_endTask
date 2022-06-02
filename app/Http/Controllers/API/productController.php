@@ -32,11 +32,11 @@ class productController extends Controller
             'images.*' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
 
         ]);
-    
+
         if ($validation->fails())
         {
 
-            return response()->json(['status'=>'error','errors'=> $validation->errors()],status :422);
+            return response()->json(['status'=>'error','errors'=> $validation->errors()],422);
         }
            $post=new post();
            $post->name=$request->name;
@@ -46,14 +46,14 @@ class productController extends Controller
 
           if($post->save())
           {
-            return response()->json(['status'=>'success','data'=>$post],status: 201);
+            return response()->json(['status'=>'success','data'=>$post], 201);
           }
           else{
-              return return response()->json('status' =>'error',status :500);
+              return  response()->json(['status' =>'error'],500);
 
 
           }
-    
+
     }
 
     /**
@@ -67,16 +67,16 @@ class productController extends Controller
        $post=post::find($id);
        if(empty($post))
        {
-          return return response()->json('status'=>'error', status: 404);
-                        
+          return  response()->json(['status'=>'error'], 404);
+
         }
         else
         {
-            return return response()->json('status'=>'success','data'=>$post,status: 200);
+            return  response()->json(['status'=>'success','data'=>$post], 200);
         }
 
 
-        
+
     }
 
     /**
@@ -91,7 +91,7 @@ class productController extends Controller
         $post=post:: find($id);
         if (empty($post))
         {
-           return response()->json(['status'=>'error','message'=>'the post is not found'], status: 404);
+           return response()->json(['status'=>'error','message'=>'the post is not found'], 404);
 
         }
 
@@ -106,13 +106,13 @@ class productController extends Controller
         // loop through images and save to /uploads directory
         foreach ($request->file('images') as $image) {
             $name = $image->getClientOriginalName();
-            $image->move(public_path().'/uploads/', $name);  
+            $image->move(public_path().'/uploads/', $name);
             $image_names[] = $name;
-        }   
+        }
         if ($validation->fails())
         {
 
-            return response()->json(['status'=>'error','errors'=> $validation->errors()],status :422);
+            return response()->json(['status'=>'error','errors'=> $validation->errors()],422);
         }
            $post->name=$request->name;
            $post->daily_budget=$request->daily_budget;
@@ -121,10 +121,10 @@ class productController extends Controller
 
           if($post->update())
           {
-            return response()->json(['status'=>'success','data'=>$post],status: 201);
+            return response()->json(['status'=>'success','data'=>$post], 201);
           }
           else{
-              return return response()->json('status' =>'error',status :500);
+              return  response()->json(['status' =>'error'],500);
 
 
           }
@@ -139,18 +139,19 @@ class productController extends Controller
     public function destroy($id)
     {
         $post=post::find($id);
+
         if (empty($post))
         {
-           return response()->json(['status'=>'error','message'=>'the post is not found'], status: 404);
+           return response()->json(['status'=>'error','message'=>'the post is not found'],  404);
 
         }
         elseif($post->delete())
         {
-            return response()->json(['status'=>'error','data'=>'$post'], status: 200);
+            return response()->json(['status'=>'error','data'=>'$post'],  200);
 
         }
         else{
-            return return response()->json('status' =>'error', status: 500);
+            return  response()->json(['status' =>'error'], 500);
 
         }
 
